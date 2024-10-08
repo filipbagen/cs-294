@@ -2,9 +2,13 @@ from typing import Dict, List
 from autogen import ConversableAgent
 import sys
 import os
+import re
 
 
 def fetch_restaurant_data(restaurant_name: str) -> Dict[str, List[str]]:
+    # Convert restaurant_name to lowercase for case insensitivity
+    restaurant_name_lower = restaurant_name.lower()
+
     # Read the data from restaurant-data.txt
     with open('restaurant-data.txt') as f:
         data = f.read()
@@ -12,9 +16,13 @@ def fetch_restaurant_data(restaurant_name: str) -> Dict[str, List[str]]:
         # For each row, find the first word that starts with restaurant_name
         reviews = []
         for row in data.split("\n"):
-            # If the row starts with the restaurant name, add the review to the list
-            if row.startswith(restaurant_name):
-                reviews.append(" ".join(row.split()[1:]))
+            # Convert row to lowercase for case insensitivity
+            row_lower = row.lower()
+            if row_lower.startswith(restaurant_name_lower):
+                # Use regex to remove the restaurant name and leading words until the first punctuation
+                review = re.sub(
+                    rf'^{re.escape(restaurant_name_lower)}\W*', '', row, flags=re.IGNORECASE)
+                reviews.append(review)
 
     return {restaurant_name: reviews}
 
