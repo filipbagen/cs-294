@@ -20,17 +20,22 @@ def fetch_restaurant_data(restaurant_name: str) -> Dict[str, List[str]]:
 
 
 def calculate_overall_score(restaurant_name: str, food_scores: List[int], customer_service_scores: List[int]) -> Dict[str, float]:
-    # TODO
-    # This function takes in a restaurant name, a list of food scores from 1-5, and a list of customer service scores from 1-5
-    # The output should be a score between 0 and 10, which is computed as the following:
-    # SUM(sqrt(food_scores[i]**2 * customer_service_scores[i]) * 1/(N * sqrt(125)) * 10
-    # The above formula is a geometric mean of the scores, which penalizes food quality more than customer service.
-    # Example:
-    # > calculate_overall_score("Applebee's", [1, 2, 3, 4, 5], [1, 2, 3, 4, 5])
-    # {"Applebee's": 5.048}
-    # NOTE: be sure to that the score includes AT LEAST 3  decimal places. The public tests will only read scores that have
-    # at least 3 decimal places.
-    pass
+    N = len(food_scores)
+
+    # Check for invalid inputs
+    if N == 0:
+        raise ValueError("The list of scores cannot be empty")
+
+    if len(customer_service_scores) != N:
+        raise ValueError(
+            "The length of the food scores and customer service scores must be the same")
+
+    total_score = 0
+    for i in range(N):
+        total_score += (food_scores[i]**2 *
+                        customer_service_scores[i])**0.5 * 1/(N * 125**0.5)
+
+    return {restaurant_name: total_score * 10}
 
 
 def get_data_fetch_agent_prompt(restaurant_query: str) -> str:
