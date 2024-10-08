@@ -5,14 +5,18 @@ import os
 
 
 def fetch_restaurant_data(restaurant_name: str) -> Dict[str, List[str]]:
-    # TODO
-    # This function takes in a restaurant name and returns the reviews for that restaurant.
-    # The output should be a dictionary with the key being the restaurant name and the value being a list of reviews for that restaurant.
-    # The "data fetch agent" should have access to this function signature, and it should be able to suggest this as a function call.
-    # Example:
-    # > fetch_restaurant_data("Applebee's")
-    # {"Applebee's": ["The food at Applebee's was average, with nothing particularly standing out.", ...]}
-    pass
+    # Read the data from restaurant-data.txt
+    with open('restaurant-data.txt') as f:
+        data = f.read()
+
+        # For each row, find the first word that starts with restaurant_name
+        reviews = []
+        for row in data.split("\n"):
+            # If the row starts with the restaurant name, add the review to the list
+            if row.startswith(restaurant_name):
+                reviews.append(" ".join(row.split()[1:]))
+
+    return {restaurant_name: reviews}
 
 
 def calculate_overall_score(restaurant_name: str, food_scores: List[int], customer_service_scores: List[int]) -> Dict[str, float]:
