@@ -18,7 +18,7 @@ I focused on analyzing reviews to give each restaurant a score based on food and
 - "How good is Subway as a restaurant?"
 - "What would you rate In N Out?"
 
-[Explore Lab 1](./lab1)
+[Explore Lab 1](./lab01)
 
 ---
 
@@ -38,7 +38,7 @@ I designed two attack prompts to extract a secret key hidden within the model’
 - **Virtualization**
 - **Narrative Obfuscation**
 
-[Explore Lab 2](./lab2)
+[Explore Lab 2](./lab02)
 
 ---
 
@@ -58,4 +58,4 @@ The challenge was to craft a defense prompt capable of withstanding attacks simi
 - **Obfuscation Detection**
 - **Payload Splitting Prevention**
 
-[Explore Lab 3](./lab3)
+[Explore Lab 3](./lab03)
